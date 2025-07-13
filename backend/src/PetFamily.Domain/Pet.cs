@@ -19,7 +19,7 @@ namespace PetFamily.Domain
             Address address,
             decimal weight,
             decimal height,
-            string ownerPhoneNumber,
+            PhoneNumber ownerPhoneNumber,
             bool isCastrated,
             HelpStatus helpStatus,
             DateTime birthdate,
@@ -51,7 +51,7 @@ namespace PetFamily.Domain
         public Address PetAddress { get; private set; }     
         public decimal Weight {  get; private set; }
         public decimal Height { get; private set; }
-        public string? OwnerPhoneNumber { get; private set; } 
+        public PhoneNumber OwnerPhoneNumber { get; private set; } 
         public bool IsCastrated { get; private set; }
         public HelpStatus HelpStatus { get; private set; }
         public DateTime Birthdate { get; private set; }
@@ -71,7 +71,7 @@ namespace PetFamily.Domain
             Address address,
             decimal weight,
             decimal height,
-            string ownerPhoneNumber,
+            PhoneNumber ownerPhoneNumber,
             bool isCastrated,
             HelpStatus helpStatus,
             DateTime birthdate,

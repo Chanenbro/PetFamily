@@ -18,13 +18,13 @@ public class Volunteer:Shared.Entity<VolunteerId>
         string fullName,
         string description,
         int yearExperience,
-        string phoneNumber,
+        PhoneNumber phoneNumber,
         string email):base(volunteerId)
     {
         FullName = fullName;
         Description = description;
         YearExperience = yearExperience;
-        PhoneNumber = phoneNumber;
+        VolunteerPhoneNumber  = phoneNumber;
         Email = email;
     }
     
@@ -33,17 +33,17 @@ public class Volunteer:Shared.Entity<VolunteerId>
     public string Description { get; private set; }
     public int YearExperience { get; private set; }
     public IReadOnlyList<Pet> Pets => _pets;
-    public string PhoneNumber { get; private set; }
+    public PhoneNumber VolunteerPhoneNumber { get; private set; }
     public string Email { get; private set; }
-    public IReadOnlyList<SocialNetwork> VolonteerSocialNetworks => _socialNetworks;
-    public IReadOnlyList<Requisites> VolonteerRequisites => _requisites;
+    public IReadOnlyList<SocialNetwork> VolunteerSocialNetworks => _socialNetworks;
+    public IReadOnlyList<Requisites> VolunteerRequisites => _requisites;
     public IReadOnlyList<Photo> Photos => _photos;
 
     public static Result<Volunteer> Create(VolunteerId volunteerId,
         string fullName,
         string description,
         int yearExperience,
-        string phoneNumber,
+        PhoneNumber phoneNumber,
         string email,
         List<Pet> pets,
         List<SocialNetwork> volunteerSocialNetworks,
@@ -56,9 +56,7 @@ public class Volunteer:Shared.Entity<VolunteerId>
             return Result.Failure<Volunteer>("Description cannot be null");
         if(string.IsNullOrEmpty(email))
             return Result.Failure<Volunteer>("Email cannot be null");
-        if(string.IsNullOrEmpty(phoneNumber))
-            return Result.Failure<Volunteer>("Phone number cannot be null");
-
+        
         var volunteer = new Volunteer(volunteerId,fullName, description, yearExperience, phoneNumber, email);
         
         volunteer._pets.AddRange(pets);
