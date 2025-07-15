@@ -23,7 +23,9 @@ namespace PetFamily.Domain
             bool isCastrated,
             HelpStatus helpStatus,
             DateTime birthdate,
-            bool isVaccinated):base(petId)
+            bool isVaccinated,
+            List<Requisites>  requisites,
+            List<Photo> photos):base(petId)
         {
             Nickname = nickname;
             Description = description;
@@ -39,6 +41,8 @@ namespace PetFamily.Domain
             IsVaccinated = isVaccinated;
             CreationDate = DateTime.Now;
             Likes = 0;
+            _photos.AddRange(photos);
+            _requisites.AddRange(requisites);
         }
         public PetId PetId { get; private set; }            
         public string Nickname { get; private set; } 
@@ -90,11 +94,8 @@ namespace PetFamily.Domain
             
             var pet = new Pet(petId,nickname,description,color, healthInfo,
                 address,weight,height,ownerPhoneNumber,
-                isCastrated,helpStatus,birthdate, isVaccinated);
-            
-            pet._photos.AddRange(photos);
-            pet._requisites.AddRange(requisites);
-            
+                isCastrated,helpStatus,birthdate, isVaccinated,requisites,photos);
+
             return Result.Success(pet);
         }
     }

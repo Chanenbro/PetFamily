@@ -9,9 +9,10 @@ public class Species: Shared.Entity<SpeciesId>
     private readonly List<Breed> _breeds = [];
     // EF Core
     private Species(SpeciesId speciesId):base(speciesId) {}
-    private Species(SpeciesId speciesId, string name): base(speciesId)
+    private Species(SpeciesId speciesId, string name,List<Breed> breeds): base(speciesId)
     {
         Name = name;
+        _breeds.AddRange(breeds);
     }
 
     public SpeciesId SpeciesId { get; private set; }
@@ -19,15 +20,13 @@ public class Species: Shared.Entity<SpeciesId>
 
     public List<Breed> Breeds => _breeds;
 
-    public static Result<Species> Create(SpeciesId speciesId,string name, List<Breed> breeds)
+    public static Result<Species> Create(SpeciesId speciesId,string name,List<Breed> breeds)
     {
         if(string.IsNullOrWhiteSpace(name))
             return Result.Failure<Species>("Species name cannot be empty");
         
-        var species = new Species(speciesId,name);
-        
-        species._breeds.AddRange(breeds);
-        
+        var species = new Species(speciesId,name, breeds);
+
         return Result.Success(species);
     }
 }

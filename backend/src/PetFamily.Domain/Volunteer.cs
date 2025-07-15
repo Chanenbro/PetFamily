@@ -19,13 +19,21 @@ public class Volunteer:Shared.Entity<VolunteerId>
         string description,
         int yearExperience,
         PhoneNumber phoneNumber,
-        string email):base(volunteerId)
+        string email,
+        List<Pet> pets,
+        List<SocialNetwork> volunteerSocialNetworks,
+        List<Requisites> requisites,
+        List<Photo> photos):base(volunteerId)
     {
         FullName = fullName;
         Description = description;
         YearExperience = yearExperience;
         VolunteerPhoneNumber  = phoneNumber;
         Email = email;
+        _pets.AddRange(pets);
+        _socialNetworks.AddRange(volunteerSocialNetworks);
+        _requisites.AddRange(requisites);
+        _photos.AddRange(photos);
     }
     
     public VolunteerId VolunteerId { get; private set; }
@@ -56,13 +64,9 @@ public class Volunteer:Shared.Entity<VolunteerId>
             return Result.Failure<Volunteer>("Description cannot be null");
         if(string.IsNullOrEmpty(email))
             return Result.Failure<Volunteer>("Email cannot be null");
-        
-        var volunteer = new Volunteer(volunteerId,fullName, description, yearExperience, phoneNumber, email);
-        
-        volunteer._pets.AddRange(pets);
-        volunteer._photos.AddRange(photos);
-        volunteer._socialNetworks.AddRange(volunteerSocialNetworks);
-        volunteer._requisites.AddRange(requisites);
+
+        var volunteer = new Volunteer(volunteerId, fullName, description, yearExperience, phoneNumber, email, pets,
+            volunteerSocialNetworks, requisites, photos);
         
         return Result.Success(volunteer);
     }
